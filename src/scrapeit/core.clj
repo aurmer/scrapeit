@@ -8,7 +8,11 @@
     (ring/router
       [["/" {:get (fn [req]
                     {:status 200
-                     :body "Hello World!"})}]])))
+                     :body "Hello World!"})}]])
+    (ring/routes
+      (ring/redirect-trailing-slash-handler)
+      (ring/create-default-handler
+        {:not-found (constantly {:status 404 :body "not found"})}))))
 
 (defn -main [& args]
   (println "Started!")
